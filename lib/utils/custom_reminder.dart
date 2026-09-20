@@ -52,9 +52,7 @@ class _CustomReminderState extends State<CustomReminder> {
   void initState() {
     super.initState();
 
-    NotificationService.instance.stopActiveMedicineAlarm();
-
-    _startReminderAudio();
+    _initReminderAudio();
     _fetchData();
   }
 
@@ -66,6 +64,14 @@ class _CustomReminderState extends State<CustomReminder> {
     Navigator.of(
       context,
     ).pushNamedAndRemoveUntil(Routes.main, (route) => false);
+  }
+
+  Future<void> _initReminderAudio() async {
+    try {
+      await NotificationService.instance.stopActiveMedicineAlarm();
+    } catch (_) {}
+
+    await _startReminderAudio();
   }
 
   Future<void> _startReminderAudio() async {

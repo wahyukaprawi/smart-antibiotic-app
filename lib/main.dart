@@ -29,6 +29,7 @@ import 'package:smart_antibiotic/services/medicine_history_service.dart';
 import 'package:smart_antibiotic/services/medicine_service.dart';
 import 'package:smart_antibiotic/services/notification_service.dart';
 import 'package:smart_antibiotic/services/quiz_service.dart';
+import 'package:smart_antibiotic/services/reminder_audio_player.dart';
 import 'package:smart_antibiotic/services/user_service.dart';
 
 import 'routes/routes.dart';
@@ -46,6 +47,8 @@ void main() async {
   final notificationService = NotificationService.instance;
 
   notificationService.setLocalStorage(localStorage);
+
+  ReminderAudioPlayer.instance.setLocalStorage(localStorage);
 
   await notificationService.initialize();
 

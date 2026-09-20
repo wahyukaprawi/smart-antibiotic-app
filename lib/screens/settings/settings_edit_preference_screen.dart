@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smart_antibiotic/screens/settings/settings_edit_profil_screen.dart';
 
+import '../../providers/medicine_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../services/notification_service.dart';
 import '../../utils/app_assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text.dart';
@@ -107,6 +109,16 @@ class _SettingsEditPreferenceScreenState
     }
 
     if (success) {
+      try {
+        final medicines = context.read<MedicineProvider>().medicines;
+
+        if (medicines.isNotEmpty) {
+          NotificationService.instance
+              .refreshReminderSettings(List.of(medicines))
+              .catchError((_) {});
+        }
+      } catch (_) {}
+
       Navigator.pop(context, true);
 
       return;

@@ -48,15 +48,14 @@ class ReminderAudioPlayer {
   }
 
   Future<void> play() async {
-    await initialize();
+    _isMuted = false;
 
-    if (_isMuted) {
-      return;
-    }
+    await initialize();
 
     final soundResource = _getSoundResourceName();
 
     await _player.stop();
+    await _player.setVolume(1.0);
 
     await _player.play(AssetSource('sounds/$soundResource.mp3'));
   }
@@ -72,7 +71,22 @@ class ReminderAudioPlayer {
 
   Future<void> unmute() async {
     _isMuted = false;
-    await _player.resume();
+    await _player.setVolume(1.0);
+
+    try {
+      if (_player.state == PlayerState.paused) {
+        await _player.resume();
+        return;
+      }
+    } catch (_) {
+    }
+
+    final soundResource = _getSoundResourceName();
+
+    try {
+      await _player.stop();
+      await _player.play(AssetSource('sounds/$soundResource.mp3'));
+    } catch (_) {}
   }
 
   bool get isMuted => _isMuted;

@@ -475,17 +475,13 @@ class NotificationService {
       );
 
       if (endDateOnly.difference(firstDate).inDays > _maxScheduleDays) {
-        endDateOnly = firstDate.add(
-          const Duration(days: _maxScheduleDays),
-        );
+        endDateOnly = firstDate.add(const Duration(days: _maxScheduleDays));
       }
 
       lastDate = endDateOnly;
     } else {
       final today = _dateOnly(now.year, now.month, now.day);
-      final rollingEnd = today.add(
-        const Duration(days: _defaultScheduleDays),
-      );
+      final rollingEnd = today.add(const Duration(days: _defaultScheduleDays));
 
       lastDate = rollingEnd.isAfter(firstDate)
           ? rollingEnd
@@ -950,8 +946,7 @@ class NotificationService {
 
       final effectiveDosage = dosageOverride ?? medicine.dosage;
       final effectiveUnit = dosageUnitOverride ?? medicine.dosageUnit;
-      final effectiveInstruction =
-          instructionOverride ?? medicine.instruction;
+      final effectiveInstruction = instructionOverride ?? medicine.instruction;
 
       final payload = _buildMedicinePayload(
         medicine: medicine,
@@ -971,7 +966,8 @@ class NotificationService {
       await scheduleMedicineNotification(
         id: exactReminderId,
         title: 'Waktunya Minum Obat',
-        body: 'Saatnya minum ${medicine.name} '
+        body:
+            'Saatnya minum ${medicine.name} '
             '$effectiveDosage $effectiveUnit.',
         scheduledDate: medicineTime,
         notificationDetails: notificationDetails,
@@ -1145,7 +1141,8 @@ class NotificationService {
 
       final scheduleTimeId = decoded['schedule_time_id'];
 
-      final rawDate = decoded['scheduled_day']?.toString() ??
+      final rawDate =
+          decoded['scheduled_day']?.toString() ??
           decoded['scheduled_date']?.toString();
 
       if (scheduleTimeId is! int || rawDate == null || rawDate.isEmpty) {
@@ -1174,7 +1171,8 @@ class NotificationService {
 
       final scheduleTimeId = decoded['schedule_time_id'];
 
-      final rawDate = decoded['scheduled_day']?.toString() ??
+      final rawDate =
+          decoded['scheduled_day']?.toString() ??
           decoded['scheduled_date']?.toString();
 
       if (scheduleTimeId is! int || rawDate == null || rawDate.isEmpty) {
@@ -1218,15 +1216,18 @@ class NotificationService {
 
     DateTime anchorDay;
     try {
-      anchorDay = originalScheduledDate != null &&
-              originalScheduledDate.isNotEmpty
+      anchorDay =
+          originalScheduledDate != null && originalScheduledDate.isNotEmpty
           ? _dateOnly(
               DateTime.parse(originalScheduledDate).year,
               DateTime.parse(originalScheduledDate).month,
               DateTime.parse(originalScheduledDate).day,
             )
           : _dateOnly(
-              scheduledDate.year, scheduledDate.month, scheduledDate.day);
+              scheduledDate.year,
+              scheduledDate.month,
+              scheduledDate.day,
+            );
     } catch (_) {
       anchorDay = _dateOnly(
         scheduledDate.year,
@@ -1310,8 +1311,9 @@ class NotificationService {
     for (final medicine in medicines) {
       try {
         if (medicine.id == null || !medicine.isActive) continue;
-        final perDay =
-            medicine.scheduleTimes.isEmpty ? 1 : medicine.scheduleTimes.length;
+        final perDay = medicine.scheduleTimes.isEmpty
+            ? 1
+            : medicine.scheduleTimes.length;
         final threshold = (perDay * 4).clamp(20, 60);
         if ((counts[medicine.id] ?? 0) < threshold) {
           await scheduleMedicineNotifications(
@@ -1319,6 +1321,24 @@ class NotificationService {
             preReminderMinutes: preReminderMinutes,
           );
         }
+        await Future.delayed(const Duration(milliseconds: 10));
+      } catch (_) {}
+    }
+  }
+
+  Future<void> refreshReminderSettings(
+    List<MedicineModel> medicines, {
+    int preReminderMinutes = 30,
+  }) async {
+    _lastResync = DateTime.now();
+
+    for (final medicine in medicines) {
+      try {
+        if (medicine.id == null || !medicine.isActive) continue;
+        await scheduleMedicineNotifications(
+          medicine: medicine,
+          preReminderMinutes: preReminderMinutes,
+        );
         await Future.delayed(const Duration(milliseconds: 10));
       } catch (_) {}
     }
