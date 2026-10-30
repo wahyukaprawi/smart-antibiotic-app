@@ -284,6 +284,8 @@ Widget _buildHeader(
                     style: AppTextStyles.titleLarge.copyWith(
                       color: AppColors.textWhite,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
 
                   const SizedBox(height: 4),
