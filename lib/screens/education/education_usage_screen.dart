@@ -289,6 +289,7 @@ Widget _buildList(BuildContext context) {
           subtitle: menu['subtitle'] as String,
           image: menu['image'] as Image,
           color: const Color(0xFFE0EDFA),
+          subtitleMaxLines: 3,
         ),
       );
     },

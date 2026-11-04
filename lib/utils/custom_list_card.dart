@@ -7,6 +7,7 @@ class CustomListCard extends StatelessWidget {
   final String subtitle;
   final Widget image;
   final Color color;
+  final int subtitleMaxLines;
 
   const CustomListCard({
     super.key,
@@ -14,6 +15,7 @@ class CustomListCard extends StatelessWidget {
     required this.subtitle,
     required this.image,
     required this.color,
+    this.subtitleMaxLines = 2,
   });
 
   @override
@@ -53,7 +55,7 @@ class CustomListCard extends StatelessWidget {
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.textSecondary,
                   ),
-                  maxLines: 2,
+                  maxLines: subtitleMaxLines,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
