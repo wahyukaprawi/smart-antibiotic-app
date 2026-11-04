@@ -283,7 +283,7 @@ Widget _buildContent(BuildContext context) {
       children: [
         const SizedBox(height: 26),
         Text(
-          'Beberapa jenis antibiotik berdasarkan cara kerjanya:',
+          'Antibiotik membunuh atau menghentikan pertumbuhan bakteri dengan cara berbeda:',
           style: AppTextStyles.bodyMedium.copyWith(fontSize: 18),
         ),
         const SizedBox(height: 16),
@@ -325,23 +325,23 @@ Widget _buildContent(BuildContext context) {
 Widget _buildList(BuildContext context) {
   final item = [
     {
-      'title': 'Penghambat dinding sel bakteri',
-      'subtitle': 'Contoh: Penicillin',
+      'title': 'Merusak dinding pelindung bakteri',
+      'subtitle': 'Contoh: Penisilin, amoksisilin',
       'image': Image.asset(imgBarrier),
     },
     {
-      'title': 'Penghambat sintesis protein Bakteri',
-      'subtitle': 'Contoh: Tetracycline',
+      'title': 'Menghentikan pembuatan protein bakteri',
+      'subtitle': 'Contoh: Tetrasiklin, azitromisin',
       'image': Image.asset(imgMicrobe),
     },
     {
-      'title': 'Penghambat sintesis asam nukleat',
-      'subtitle': 'Contoh: Ciprofloxacin',
+      'title': 'Mengganggu DNA bakteri',
+      'subtitle': 'Contoh: Siprofloksasin, levofloksasin',
       'image': Image.asset(imgDNA),
     },
     {
-      'title': 'Penghambat metabolisme tubuh',
-      'subtitle': 'Contoh: Sulfonamide',
+      'title': 'Menghambat bakteri membuat zat penting (asam folat)',
+      'subtitle': 'Contoh: Sulfonamida, kotrimoksazol',
       'image': Image.asset(imgMolecule),
     },
   ];

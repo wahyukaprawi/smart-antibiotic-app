@@ -255,20 +255,21 @@ Widget _buildList(BuildContext context) {
       'image': Image.asset(imgDoctor),
     },
     {
-      'title': 'Habiskan sesuai aturan',
+      'title': 'Minum sesuai aturan dan habiskan',
       'subtitle':
-          'Jangan berhenti di tengah jalan meskipun merasa sudah sembuh',
+          'Ikuti dosis dan jadwal, jangan berhenti di tengah jalan meskipun merasa sudah sembuh',
       'image': Image.asset(imgCalendar),
-    },
-    {
-      'title': 'Gunakan sesuai resep dokter',
-      'subtitle': 'Ikuti dosis dan jadwal yang di anjurkan',
-      'image': Image.asset(imgPills),
     },
     {
       'title': 'Jangan berbagi antibiotik',
       'subtitle':
-          'Obat yang cocok untuk orang lain belum tentu cocok untuk Anda.',
+          'Obat yang cocok untuk orang lain belum tentu cocok untuk Anda',
+      'image': Image.asset(imgPills),
+    },
+    {
+      'title': 'Simpan dengan benar',
+      'subtitle':
+          'Simpan di tempat sejuk dan kering, jauh dari sinar matahari dan jangkauan anak.',
       'image': Image.asset(imgPeople),
     },
   ];
